@@ -1,0 +1,173 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: antiquewhite;
+}
+
+
+#container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+    /* Add a subtle box shadow for depth */
+    border-radius: 10px;
+}
+
+#title_container {
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+#title1 {
+    font-size: 36px;
+    color: #007bff;
+    word-spacing: 1.2px;
+    letter-spacing: 0.4px;
+}
+
+#title2 {
+    font-size: 20px;
+    color: #555;
+    margin-top: 30px;
+    letter-spacing: 0.8px;
+}
+
+#title3 {
+    font-size: 20px;
+    color: #555;
+    margin-top: 5px;
+    letter-spacing: 0.8px;
+}
+
+#buttons_container {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 15px;
+}
+
+button {
+    font-size: 20px;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border: 0px solid black;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+th,
+td {
+    padding: 16px;
+    text-align: center;
+    /*border-right: 1px solid #ccc; */
+    border: 1px solid #ccc; /* Add a right border to th and td elements */
+    /* Add a right border to th and td elements */
+}
+
+th {
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #ccc; /* Add a bottom border to th elements */
+    /* Add a bottom border to th elements */
+}
+
+/* Mission rows styles */
+tr.mission-row:hover {
+    background-color: #fff;
+    /* Change background color on hover */
+}
+
+button#getListBtn {
+    background-color: #007bff;
+    color: #fff;
+}
+
+button#getListBtn:hover {
+    background-color: #0056b3;
+}
+
+button#addUserBtn {
+    background-color: rgb(115, 202, 97);
+    /* Green color for the button */
+    color: #fff;
+    /* Text color */
+}
+
+button#addUserBtn:hover {
+    background-color: #28a745;
+    /* Darker green color on hover */
+}
+
+button#findUserBtn {
+    background-color: #dd9ddf;
+    /* Green color for the button */
+    color: #fff;
+    /* Text color */
+}
+
+button#findUserBtn:hover {
+    background-color: #9828a7;
+    /* Darker green color on hover */
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+tr:hover {background-color: coral;}
+
+tr:nth-child(even):hover {background-color: coral;}
+
+tr {
+    margin-top: 30px;
+}
+
+th {
+    background-color: #04AA6D;
+    color: white;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    body {
+        font-size: 16px;
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+    table {
+        font-size: 14px;
+    }
+
+    th,
+    td {
+        padding: 12px;
+    }
+
+
+    #div_title {
+        margin-bottom: 20px;
+    }
+
+    #title1 {
+        font-size: 28px;
+    }
+
+    #title3 {
+        font-size: 18px;
+    }
+
+    button {
+        font-size: 18px;
+        padding: 10px 20px;
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+}
