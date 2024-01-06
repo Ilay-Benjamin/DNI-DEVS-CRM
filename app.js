@@ -14,32 +14,50 @@ function initTable() {
 
 
 function loadTable(users) {
-    var tbody  = document
-        .getElementById("my_table")
-        .getElementsByTagName("tbody")[0];
+    const tbl = document.getElementById("my_table1");
+    const tblBody = document.createElement("tbody");
 
-    users.forEach((user, index) => {
-        var userRow = document.createElement("tr");
-        userRow.id = user.id;
-        userRow.addEventListener("click", () => { alert(JSON.stringify(user)) });
+    var rowsNumber = users.length;
+    var columnsNumber = 5;
 
-        Object.keys(user).forEach((key) => {
-            var dataCell = document.createElement("td");
-            dataCell.textContent = user[key];
-            userRow.appendChild(dataCell);
+    var userDataFields = Object.keys(users[0]);
+
+    for (let row = 0; row < rowsNumber; row++) {
+
+        const user = users[row];
+        const dataRow = document.createElement("tr");
+        dataRow.addEventListener("click", () => {
+            alert(JSON.stringify(user));
         });
 
-        tbody.appendChild(userRow);
-    });
+        for (let column = 0; column < columnsNumber; column++) {
+
+            const userDataField = user[userDataFields[column]];
+            const dataCell = document.createElement("td");
+            const cellText = document.createTextNode(userDataField);
+
+            dataCell.appendChild(cellText);
+            dataRow.appendChild(dataCell);
+        }
+
+        tblBody.appendChild(dataRow);
+    }
+
+    tbl.appendChild(tblBody);
+    // appends <table> into <body>
+    //  <table><thead><tr><th>hey</th><th>bye</th></tr></thead><tbody><tr><td>r</td><td>R</td></tr><tr><td>a</td><td>A</td></tr></tbody></table>
+    // sets the border attribute of tbl to '2'
+    tbl.setAttribute("border", "2");
 }
 
 function reloadTable(users) {
-    var tbody  = document
-        .getElementById("my_table")
-        .getElementsByTagName("tbody")[0];
-    while (tbody.firstChild) {
-        tbody.removeChild(tbody.firstChild);
+    const tbl = document.getElementById("my_table1");
+    const tbodyList = tbl.getElementsByTagName("tbody");
+
+    for (const tbody of tbodyList) {
+        tbl.removeChild(tbody);
     }
+
     loadTable(users);
 }
 
@@ -79,7 +97,7 @@ function addUser() {
     var password = prompt("Enter Password: ");
     var fullname = prompt("Enter Fullname: ");
     var bio = prompt("Enter Bio: ");
-    if ( typeof username === "string" && typeof password === "string" && typeof fullname === "string" && typeof bio === "string") {
+    if (typeof username === "string" && typeof password === "string" && typeof fullname === "string" && typeof bio === "string") {
         $.ajax({
             url: 'https://ilay-apis.online/APIs/API-5/index.php/user/append?' +
                 'username=' + username + '&password=' + password + '&fullname=' + fullname + '&bio=' + bio,

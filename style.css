@@ -1,173 +1,199 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: antiquewhite;
-}
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: antiquewhite;
+            /* Set a background color for the body */
+        }
+
+        .container {
+            width: 95%;
+            display: flex;
+            justify-content: center;
+            justify-items: center;
+            flex-direction: column;
+            max-width: 800px;
+            margin: 0 auto;
+            padding-left: 30px;
+            padding-right: 30px;
+            padding-bottom: 30px;
+            /* Set a background color for the container */
+            /* Add a subtle box shadow for depth */
+            /* Add rounded corners to the container */
+        }
+
+        /* Title and Subtitle styles */
+        /* Title and Subtitle styles */
+        #div_title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        #logo {
+            width: 100px;
+            height: 110px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        #logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* New styles for the page title */
+        #title1 {
+            font-size: 36px;
+            color: #007bff;
+            margin: 20px 0;
+        }
+
+        /* Styles for the sign title */
+
+        #title3 {
+            font-size: 20px;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        #title2 {
+            font-size: 20px;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        /* Center the form buttons */
+        #div_buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
 
 
-#container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 30px;
-    /* Add a subtle box shadow for depth */
-    border-radius: 10px;
-}
+        /* Additional styles for buttons */
+        button {
+            font-size: 20px;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            border: 0px solid black;
+        }
 
-#title_container {
-    text-align: center;
-    margin-bottom: 0px;
-}
+        button#getListBtn {
+            background-color: #007bff;
+            color: #fff;
+        }
 
-#title1 {
-    font-size: 36px;
-    color: #007bff;
-    word-spacing: 1.2px;
-    letter-spacing: 0.4px;
-}
+        button#getListBtn:hover {
+            background-color: #0056b3;
+        }
 
-#title2 {
-    font-size: 20px;
-    color: #555;
-    margin-top: 30px;
-    letter-spacing: 0.8px;
-}
+        button#addUserBtn {
+            background-color: rgb(115, 202, 97);
+            color: #fff;
+        }
 
-#title3 {
-    font-size: 20px;
-    color: #555;
-    margin-top: 5px;
-    letter-spacing: 0.8px;
-}
+        button#addUserBtn:hover {
+            background-color: #28a745;
+        }
 
-#buttons_container {
-    display: flex;
-    justify-content: center;
-    gap: 25px;
-    margin-top: 15px;
-}
+        button#findUserBtn {
+            background-color: #dd9ddf;
+            color: #fff;
+        }
 
-button {
-    font-size: 20px;
-    padding: 12px 24px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border: 0px solid black;
-}
+        button#findUserBtn:hover {
+            background-color: #9828a7;
+        }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
+        #div_tables {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            overflow-x: auto;
+        }
 
-th,
-td {
-    padding: 16px;
-    text-align: center;
-    /*border-right: 1px solid #ccc; */
-    border: 1px solid #ccc; /* Add a right border to th and td elements */
-    /* Add a right border to th and td elements */
-}
+        /* Table styles */
+        #my_table1 {
+            max-width: 80%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            border: 0px solid black;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
 
-th {
-    background-color: #f2f2f2;
-    border-bottom: 1px solid #ccc; /* Add a bottom border to th elements */
-    /* Add a bottom border to th elements */
-}
+        th,
+        td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ccc;
+            /* Add a right border to th and td elements */
+        }
 
-/* Mission rows styles */
-tr.mission-row:hover {
-    background-color: #fff;
-    /* Change background color on hover */
-}
+        th {
+            background-color: #13ce3b;
+            border-bottom: 1px solid #ccc;
+            /* Add a bottom border to th elements */
+        }
 
-button#getListBtn {
-    background-color: #007bff;
-    color: #fff;
-}
+        /* Mission rows styles */
+        tr:nth-child(even) {
+            background-color: #f2f2f2
+        }
+        
+        tr:hover {
+            background-color: coral;
+        }
+        
+        tr:nth-child(even):hover {
+            background-color: coral;
+        }
 
-button#getListBtn:hover {
-    background-color: #0056b3;
-}
+        /* Responsive styles */
+        @media (max-width: 600px) {
+            body {
+                font-size: 16px;
+            }
 
-button#addUserBtn {
-    background-color: rgb(115, 202, 97);
-    /* Green color for the button */
-    color: #fff;
-    /* Text color */
-}
+            .container {
+                padding: 20px;
+            }
 
-button#addUserBtn:hover {
-    background-color: #28a745;
-    /* Darker green color on hover */
-}
+            table {
+                font-size: 14px;
+            }
 
-button#findUserBtn {
-    background-color: #dd9ddf;
-    /* Green color for the button */
-    color: #fff;
-    /* Text color */
-}
+            th,
+            td {
+                padding: 12px;
+            }
 
-button#findUserBtn:hover {
-    background-color: #9828a7;
-    /* Darker green color on hover */
-}
+            #div_title {
+                margin-bottom: 20px;
+            }
 
-tr:nth-child(even){background-color: #f2f2f2}
+            #title1 {
+                font-size: 28px;
+            }
 
-tr:hover {background-color: coral;}
+            #title3 {
+                font-size: 18px;
+            }
 
-tr:nth-child(even):hover {background-color: coral;}
-
-tr {
-    margin-top: 30px;
-}
-
-th {
-    background-color: #04AA6D;
-    color: white;
-}
-
-/* Responsive styles */
-@media (max-width: 600px) {
-    body {
-        font-size: 16px;
-    }
-
-    .container {
-        padding: 20px;
-    }
-
-    table {
-        font-size: 14px;
-    }
-
-    th,
-    td {
-        padding: 12px;
-    }
-
-
-    #div_title {
-        margin-bottom: 20px;
-    }
-
-    #title1 {
-        font-size: 28px;
-    }
-
-    #title3 {
-        font-size: 18px;
-    }
-
-    button {
-        font-size: 18px;
-        padding: 10px 20px;
-        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    }
-}
+            button {
+                font-size: 18px;
+                padding: 10px 20px;
+                box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            }
+        }
