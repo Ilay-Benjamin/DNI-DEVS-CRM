@@ -1,0 +1,91 @@
+
+#div_tables {
+    align-self: center;
+    width: 95%;
+    margin-top: 15px;
+    padding: 5px;
+    overflow-x: auto;
+}
+
+#my_table1 {
+   width: 95%;
+    margin: auto;
+    margin-top: 15px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border: 0px solid black;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    table-layout: fixed;
+}
+
+
+th,
+td {
+    border: 1px solid #ccc;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: black;
+}
+
+td {            
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-size: 12px; 
+}
+
+th {
+    padding-bottom: 20px;
+    padding-top: 20px;
+    font-size: 15px;   
+    font-weight: 900;
+    background-color: #1ed33f;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+
+tr:hover {
+    background-color: coral;
+}
+
+tr:nth-child(even):hover {
+    background-color: coral;
+}
+
+.id-cell, #id-header {
+    width: 55px;
+
+}
+
+.id-cell {
+    font-size: 12px; 
+    font-weight: 600;
+}
+
+.username-cell, #username-header {
+    width: 125px;
+}
+
+.username-cell {
+    font-weight: 600;
+}
+
+.password-cell, #password-header {
+    width: 110px;
+}
+
+.fullname-cell, #fullname-header{
+    width: 125px;
+}
+
+.bio-cell, #bio-header {
+    width: 110px;
+}
+
+.fullname-cell, .password-cell, .username-cell, .id-cell {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

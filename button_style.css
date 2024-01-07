@@ -1,0 +1,44 @@
+#div_buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+button {
+    font-size: 20px;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border: 0px solid black;
+}
+
+button#getListBtn {
+    background-color: #007bff;
+    color: #fff;
+}
+
+button#getListBtn:hover {
+    background-color: #0056b3;
+}
+
+button#addUserBtn {
+    background-color: rgb(115, 202, 97);
+    color: #fff;
+}
+
+button#addUserBtn:hover {
+    background-color: #28a745;
+}
+
+button#findUserBtn {
+    background-color: #dd9ddf;
+    color: #fff;
+}
+
+button#findUserBtn:hover {
+    background-color: #9828a7;
+}
+
