@@ -4,7 +4,7 @@ function initPage() {
 
 function initTable() {
     $.ajax({
-        url: 'https://ilay-apis.online/APIs/API-5b/index.php/user/list?limit=1000',
+        url: 'https://ilay-apis.online/APIs/API-6/index.php/user/list?limit=1000',
         type: 'GET',
         success: function (output) {
             loadTable(output);
@@ -35,7 +35,7 @@ function loadTable(users) {
             const userDataField = user[userDataFields[column]];
             const dataCell = document.createElement("td");
             const cellText = document.createTextNode(userDataField);
-            
+
             dataCell.className = userDataFields[column] + "-cell";
 
             dataCell.appendChild(cellText);
@@ -54,7 +54,7 @@ function loadTable(users) {
 
 function reloadTable(users) {
     const tbl = document.getElementById("my_table1");
-    const oldTbody = tbl.getElementById("my_table_body1");
+    const oldTbody = document.getElementById("my_table_body1");
     const newTbody = document.createElement('tbody');
     tbl.replaceChild(newTbody, oldTbody);
 
@@ -67,7 +67,7 @@ function getUsersList() {
     var limit = prompt("Enter List Limit: ");
     if (!isNaN(limit)) {
         $.ajax({
-            url: 'https://ilay-apis.online/APIs/API-5b/index.php/user/list?limit=' + limit,
+            url: 'https://ilay-apis.online/APIs/API-6/index.php/user/list?limit=' + limit,
             type: 'GET',
             success: function (output) {
                 reloadTable(output);
@@ -82,7 +82,7 @@ function findUser() {
     var id = prompt("Enter Id: ");
     if (!isNaN(id)) {
         $.ajax({
-            url: 'https://ilay-apis.online/APIs/API-5b/index.php/user/find?id=' + id,
+            url: 'https://ilay-apis.online/APIs/API-6/index.php/user/find?id=' + id,
             type: 'GET',
             success: function (output) {
                 reloadTable([output]);
@@ -100,7 +100,7 @@ function addUser() {
     var bio = prompt("Enter Bio: ");
     if (typeof username === "string" && typeof password === "string" && typeof fullname === "string" && typeof bio === "string") {
         $.ajax({
-            url: 'https://ilay-apis.online/APIs/API-5b/index.php/user/append?' +
+            url: 'https://ilay-apis.online/APIs/API-6/index.php/user/append?' +
                 'username=' + username + '&password=' + password + '&fullname=' + fullname + '&bio=' + bio,
             type: 'GET',
             success: function (output) {
@@ -112,3 +112,44 @@ function addUser() {
     }
 }
 
+
+function deleteUser() {
+    var id = prompt("Enter Id: ");
+    if (!isNaN(id)) {
+        $.ajax({
+            url: 'https://ilay-apis.online/APIs/API-6/index.php/user/delete?id=' + id,
+            type: 'GET',
+            success: function (output) {
+                reloadTable(output);
+            }
+        });
+    } else {
+        alert("Error. You must enter a valid id to delete a specific user.");
+    }
+}
+
+
+function updateUser() {
+    var id = prompt("Enter Id: ");
+    if (!isNaN(id)) {
+        var username = prompt("Enter Username (Leave Empty For Not Changing): ");
+        var password = prompt("Enter Password(Leave Empty For Not Changing): ");
+        var fullname = prompt("Enter Fullname(Leave Empty For Not Changing): ");
+        var bio = prompt("Enter Bio(Leave Empty For Not Changing): ");
+        if (typeof username === "string" || typeof password === "string" || typeof fullname === "string" || typeof bio === "string") {
+            $.ajax({
+                url: 'https://ilay-apis.online/APIs/API-6/index.php/user/update?id=' + id +
+                    (username != "" ? ('&username=' + username) :
+                        (password != "" ? ('&password=' + password) :
+                            (fullname != "" ? ('&fullname=' + fullname) :
+                                (bio != "" ? ('&bio=' + bio) : "")))),
+                type: 'GET',
+                success: function (output) {
+                    reloadTable(output);
+                }
+            });
+        } else {
+            alert("Error. You must enter a valid id to delete a specific user.");
+        }
+    }
+}

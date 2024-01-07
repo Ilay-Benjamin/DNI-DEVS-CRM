@@ -1,6 +1,15 @@
 #div_buttons {
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.buttons_row_div {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
     gap: 10px;
     margin-top: 20px;
 }
@@ -15,30 +24,49 @@ button {
     border: 0px solid black;
 }
 
+button#updateUserBtn {
+    background-color: rgb(232, 82, 202);
+    color: #fff;
+}
+
+button#updateUserBtn:hover {
+    background-color: #a7289a;
+}
+
+button#deleteUserBtn {
+    background-color: rgb(232, 82, 82);
+    color: #fff;
+}
+
+button#deleteUserBtn:hover {
+    background-color: #a72828;
+}
+
+
 button#getListBtn {
-    background-color: #007bff;
+    background-color: #ffd000;
     color: #fff;
 }
 
 button#getListBtn:hover {
-    background-color: #0056b3;
+    background-color: #b3a400;
 }
 
 button#addUserBtn {
-    background-color: rgb(115, 202, 97);
+    background-color: rgb(97, 202, 123);
     color: #fff;
 }
 
 button#addUserBtn:hover {
-    background-color: #28a745;
+    background-color: #28a752;
 }
 
 button#findUserBtn {
-    background-color: #dd9ddf;
+    background-color: rgb(97, 137, 202);
     color: #fff;
 }
 
 button#findUserBtn:hover {
-    background-color: #9828a7;
+    background-color: #2855a7;
 }
 

@@ -71,20 +71,36 @@
         <div class="container">
 
             <div id="div_buttons">
-                <button id="addUserBtn" type="button" onclick="addUser()">
-                    <i class="fas fa-user-plus"></i> <!-- Font Awesome icon for "user plus" -->
-                    Add User
-                </button>
 
-                <button id="getListBtn" type="button" onclick="getUsersList()">
-                    <i class="fas fa-list"></i> <!-- Font Awesome icon for "list" -->
-                    Get List
-                </button>
+                <div class="buttons_row_div">
+                    <button id="updateUserBtn" type="button" onclick="updateUser()">
+                        <i class="fas fa-pencil-alt"></i> <!-- Font Awesome icon for "pencil" -->
+                        Update User
+                    </button>
+                    
+                    <button id="deleteUserBtn" type="button" onclick="deleteUser()">
+                        <i class="fas fa-trash-alt"></i> <!-- Font Awesome icon for "trash" -->
+                        Delete User
+                    </button>
+                </div>
 
-                <button id="findUserBtn" type="button" onclick="findUser()">
-                    <i class="fas fa-search"></i> <!-- Font Awesome icon for "search" -->
-                    Find User
-                </button>
+                <div class="buttons_row_div">
+                    <button id="addUserBtn" type="button" onclick="addUser()">
+                        <i class="fas fa-user-plus"></i> <!-- Font Awesome icon for "user plus" -->
+                        Add User
+                    </button>
+    
+                    <button id="getListBtn" type="button" onclick="getUsersList()">
+                        <i class="fas fa-list"></i> <!-- Font Awesome icon for "list" -->
+                        Get List
+                    </button>
+    
+                    <button id="findUserBtn" type="button" onclick="findUser()">
+                        <i class="fas fa-search"></i> <!-- Font Awesome icon for "search" -->
+                        Find User
+                    </button>
+                </div>
+
             </div>
             
             <div id="div_tables">
@@ -103,7 +119,8 @@
 
             </div>
 
-            <br> <br>
+            <br> 
+            <br>
 
         </div>
 
