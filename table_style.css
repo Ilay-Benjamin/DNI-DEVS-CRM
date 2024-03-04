@@ -16,6 +16,7 @@
     border-radius: 10px;
     border: 1px solid #ccc;
     table-layout: fixed;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
 
@@ -37,7 +38,7 @@ td {
 th {
     padding-bottom: 20px;
     padding-top: 20px;
-    font-size: 15px;   
+    font-size: 13px;   
     font-weight: 900;
     background-color: #1ed33f;
 }
@@ -55,36 +56,34 @@ tr:nth-child(even):hover {
 }
 
 .id-cell, #id-header {
-    width: 55px;
+    width: 60px;
 
 }
 
 .id-cell {
-    font-size: 12px; 
+    font-size: 11px; 
     font-weight: 600;
 }
 
-.username-cell, #username-header {
-    width: 125px;
+.fullname-cell, #fullname-header {
+    width: 120px;
 }
 
-.username-cell {
+.fullname-cell {
     font-weight: 600;
 }
 
-.password-cell, #password-header {
-    width: 110px;
+.phoneNumber-cell, #phoneNumber-header {
+    width: 85px;
 }
 
-.fullname-cell, #fullname-header{
-    width: 125px;
+.email-cell, #email-header{
+    width: 150px;
 }
 
-.bio-cell, #bio-header {
-    width: 110px;
-}
 
-.fullname-cell, .password-cell, .username-cell, .id-cell {
+
+.email-cell, .phoneNumber-cell, .fullname-cell, .id-cell {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

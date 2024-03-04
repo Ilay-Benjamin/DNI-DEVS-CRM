@@ -4,7 +4,7 @@ function initPage() {
 
 function initTable() {
     $.ajax({
-        url: 'https://ilay-apis.online/APIs/API-6/index.php/user/list?limit=1000',
+        url: 'https://ilay-apis.online/APIs/API-7/index.php/user/list?limit=1000',
         type: 'GET',
         success: function (output) {
             loadTable(output);
@@ -20,9 +20,10 @@ function loadTable(users) {
     tblBody.id = "my_table_body1";
 
     var rowsNumber = users.length;
-    var columnsNumber = 5;
+    var columnsNumber = 4;
 
-    var userDataFields = ['id', 'username', 'password', 'fullname', 'bio'];
+    var userDataFields = ['id', 'fullname', 'email', 'phoneNumber'];
+    var userDataFieldsOrder = ['id', 'fullname', 'email', 'phoneNumber'];
     for (let row = 0; row < rowsNumber; row++) {
         const user = users[row];
         const dataRow = document.createElement("tr");
@@ -67,7 +68,7 @@ function getUsersList() {
     var limit = prompt("Enter List Limit: ");
     if (!isNaN(limit)) {
         $.ajax({
-            url: 'https://ilay-apis.online/APIs/API-6/index.php/user/list?limit=' + limit,
+            url: 'https://ilay-apis.online/APIs/API-7/index.php/user/list?limit=' + limit,
             type: 'GET',
             success: function (output) {
                 reloadTable(output);
@@ -82,7 +83,7 @@ function findUser() {
     var id = prompt("Enter Id: ");
     if (!isNaN(id)) {
         $.ajax({
-            url: 'https://ilay-apis.online/APIs/API-6/index.php/user/find?id=' + id,
+            url: 'https://ilay-apis.online/APIs/API-7/index.php/user/find?id=' + id,
             type: 'GET',
             success: function (output) {
                 reloadTable([output]);
@@ -94,14 +95,13 @@ function findUser() {
 }
 
 function addUser() {
-    var username = prompt("Enter Username: ");
-    var password = prompt("Enter Password: ");
-    var fullname = prompt("Enter Fullname: ");
-    var bio = prompt("Enter Bio: ");
-    if (typeof username === "string" && typeof password === "string" && typeof fullname === "string" && typeof bio === "string") {
+    var fullname = prompt("Enter fullname: ");
+    var phoneNumber = prompt("Enter phoneNumber: ");
+    var email = prompt("Enter email: ");
+    if (typeof fullname === "string" && typeof phoneNumber === "string" && typeof email === "string") {
         $.ajax({
-            url: 'https://ilay-apis.online/APIs/API-6/index.php/user/append?' +
-                'username=' + username + '&password=' + password + '&fullname=' + fullname + '&bio=' + bio,
+            url: 'https://ilay-apis.online/APIs/API-7/index.php/user/append?' +
+                'fullname=' + fullname + '&phoneNumber=' + phoneNumber + '&email=' + email,
             type: 'GET',
             success: function (output) {
                 reloadTable(output);
@@ -117,7 +117,7 @@ function deleteUser() {
     var id = prompt("Enter Id: ");
     if (!isNaN(id)) {
         $.ajax({
-            url: 'https://ilay-apis.online/APIs/API-6/index.php/user/delete?id=' + id,
+            url: 'https://ilay-apis.online/APIs/API-7/index.php/user/delete?id=' + id,
             type: 'GET',
             success: function (output) {
                 reloadTable(output);
@@ -132,17 +132,15 @@ function deleteUser() {
 function updateUser() {
     var id = prompt("Enter Id: ");
     if (!isNaN(id)) {
-        var username = prompt("Enter Username (Leave Empty For Not Changing): ");
-        var password = prompt("Enter Password(Leave Empty For Not Changing): ");
-        var fullname = prompt("Enter Fullname(Leave Empty For Not Changing): ");
-        var bio = prompt("Enter Bio(Leave Empty For Not Changing): ");
-        if (typeof username === "string" || typeof password === "string" || typeof fullname === "string" || typeof bio === "string") {
+        var fullname = prompt("Enter fullname (Leave Empty For Not Changing): ");
+        var phoneNumber = prompt("Enter phoneNumber(Leave Empty For Not Changing): ");
+        var email = prompt("Enter email(Leave Empty For Not Changing): ");
+        if (typeof fullname === "string" || typeof phoneNumber === "string" || typeof email === "string") {
             $.ajax({
-                url: 'https://ilay-apis.online/APIs/API-6/index.php/user/update?id=' + id +
-                    (username != "" ? ('&username=' + username) :
-                        (password != "" ? ('&password=' + password) :
-                            (fullname != "" ? ('&fullname=' + fullname) :
-                                (bio != "" ? ('&bio=' + bio) : "")))),
+                url: 'https://ilay-apis.online/APIs/API-7/index.php/user/update?id=' + id +
+                    (fullname != "" ? ('&fullname=' + fullname) :
+                        (phoneNumber != "" ? ('&phoneNumber=' + phoneNumber) :
+                            (email != "" ? ('&email=' + email) : ("")))),
                 type: 'GET',
                 success: function (output) {
                     reloadTable(output);
