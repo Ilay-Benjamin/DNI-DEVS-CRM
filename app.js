@@ -10,6 +10,8 @@ import { Action, Actions, ActionFactory } from './actions.js';
 export function initPage() {
     //alert("Page initialized");
     $(document).ready(function() {
+        $("#error_display_div").hide();
+        $("#success_display_div").hide();
         document.getElementById('addUserBtn').addEventListener('click', function(event) {
             onActionButtonClick('addUser');
         });

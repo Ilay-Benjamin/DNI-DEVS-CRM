@@ -37,11 +37,10 @@
 
 
     <body>
-
         <nav class="navbar navbar-dark bg-danger fs-3">
             <div class="container-fluid mx-auto">
                 <a class="navbar-brand mx-auto" href="#">
-                    <img src="https://iconape.com/wp-content/png_logo_vector/github-circle-coreui-icons-v1-0-0.png" alt="Logo" width="100" height="110"
+                    <img src="/logo.png" alt="Logo" width="110" height="110" fit-content: contain;
                         class="d-inline-block">
                 </a>
                 <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar">
@@ -50,24 +49,21 @@
                 <div class="collapse navbar-collapse" id="navbar">
                     <ul class="navbar-nav">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Home</a>
+                            <a class="nav-link" href="#"> <i class="fas fa-user-plus"></i> להרשמה</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#"> <i class="fas fa-cog"></i> Settings</a>
+                            <a class="nav-link" href="#"> <i class="fas fa-envelope"></i> יצירת קשר</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
-
         <div id="div_title">
-            <h1 style="margin-top: 18px; color: #007bff; word-spacing: 2.5px;    letter-spacing: 0.4px;">Ilay's Official
-                Website </h1>
-            <h2 id="title1">API Testing #1</h2>
-                <br>
-            <h3 id="title2">DNI: Users API</h3>
-            <h3 id="title3">Version 2.0</h3>
+            <h1 style="margin-top: 18px; color: #007bff; word-spacing: 2.5px; letter-spacing: 0.4px;">
+                <i class="fas fa-code"></i> DNI Devs - CRM
+             </h1>
+              <br>
         </div>
 
         <div class="container">
@@ -109,6 +105,10 @@
 
             <div id="error_display_div" class="alert alert-danger" role="alert" style=" text-align: center">
                 <p id="error_display_p"></p>
+            </div>
+            
+            <div id="success_display_div" class="alert alert-success" role="alert" style=" text-align: center">
+                <p id="success_display_p"></p>
             </div>
 
             <div id="div_tables">

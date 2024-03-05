@@ -39,9 +39,24 @@ body {
     border-radius: 5px; /* Rounded corners */
     padding: 10px; /* Some padding */
     margin-top: 10px; /* Space above the div */
+
 }
 
 #error_display_p {
+    margin: 0; /* Remove default paragraph margins */
+}
+
+#success_display_div {
+    background-color: #f8d7da; /* Light red background */
+    color: #22721c; /* Dark red text */
+    border: 1px solid #f5c6cb; /* Light red border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px; /* Some padding */
+    margin-top: 10px; /* Space above the div */
+
+}
+
+#success_display_p {
     margin: 0; /* Remove default paragraph margins */
 }
 

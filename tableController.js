@@ -5,7 +5,15 @@ import { Action, Actions, ActionFactory } from './actions.js';
 
 
 
+
 export class TableController {
+
+    static USER_INFO_STATE = {
+        id: 0,
+        number: -1,
+        isLoaded: false,
+        dataRow: null
+    }
 
     static INIT_TABLE() {
         var action = ActionFactory.GET(Actions.ALL_USERS_ACTION);
@@ -18,7 +26,8 @@ export class TableController {
             }
         }
         action.call(callback);
-        $("#error_display_div").hide();
+      //  $("#error_display_div").hide();
+      //  $("#success_display_div").hide();
     }
     
     static LOAD_TABLE(output) {
@@ -43,7 +52,37 @@ export class TableController {
             const dataRow = document.createElement("tr");
     
             dataRow.addEventListener("click", () => {
-                
+                alert("Row clicked - " + user.id + " : " + JSON.stringify(TableController.USER_INFO_STATE));
+                if (!TableController.USER_INFO_STATE.isLoaded) {
+                    TableController.SHOW_USER_INFO(user);
+                    TableController.USER_INFO_STATE.id = user.id;
+                    TableController.USER_INFO_STATE.number = row;
+                    TableController.USER_INFO_STATE.isLoaded = true;
+                    TableController.USER_INFO_STATE.dataRow = dataRow;
+                    TableController.USER_INFO_STATE.dataRow.style.backgroundColor = "coral";
+                } else {
+                    if (TableController.USER_INFO_STATE.id == user.id) {
+                        TableController.CLOSE_USER_INFO();
+                        TableController.USER_INFO_STATE.dataRow.style.backgroundColor = (TableController.USER_INFO_STATE.number % 2 == 0 ? '#f2f2f2' : 'antiquewhite');
+                        TableController.USER_INFO_STATE.id = 0;
+                        TableController.USER_INFO_STATE.number = -1;
+                        TableController.USER_INFO_STATE.isLoaded = false;
+                        TableController.USER_INFO_STATE.dataRow = null;
+                    } else {
+                        TableController.CLOSE_USER_INFO();
+                        TableController.USER_INFO_STATE.dataRow.style.backgroundColor = (TableController.USER_INFO_STATE.number % 2 == 0 ? '#f2f2f2' : 'antiquewhite');
+                        TableController.USER_INFO_STATE.id = 0;
+                        TableController.USER_INFO_STATE.number = -1;
+                        TableController.USER_INFO_STATE.isLoaded = false;
+                        TableController.USER_INFO_STATE.dataRow = null;
+                        TableController.SHOW_USER_INFO(user);
+                        TableController.USER_INFO_STATE.id = user.id;
+                        TableController.USER_INFO_STATE.number = row;
+                        TableController.USER_INFO_STATE.isLoaded = true; ;
+                        TableController.USER_INFO_STATE.dataRow = dataRow;
+                        TableController.USER_INFO_STATE.dataRow.style.backgroundColor = "coral";
+                    }
+                }
                 //alert(JSON.stringify(user));
             });
     
@@ -72,6 +111,8 @@ export class TableController {
         tbl.replaceChild(newTbody, oldTbody);
         $("#error_display_p").text('');
         $("#error_display_div").hide();
+        $("#success_display_p").text('');
+        $("#success_display_div").hide();
         this.LOAD_TABLE(output);
     }
 
@@ -88,7 +129,20 @@ export class TableController {
         $("#error_display_p").html(text); // Use .html() to render the line breaks
     }
 
+    static SHOW_USER_INFO(user) {
+        $("#success_display_div").show();
+        var text = "";
+        text += "מספר מזהה" + ": " + user.id + "<br>";
+        text += "שם מלא" + ": " + user.fullname + "<br>";
+        text += "אימייל" + ": " + user.email + "<br>";
+        text += "מספר טלפון" + ": " + user.phoneNumber + "<br>";
+        $("#success_display_p").html(text);
+    }
 
+    static CLOSE_USER_INFO() {
+        $("#success_display_div").hide();
+        $("#success_display_p").html('');
+    }
 
     static EXECUTE_ACTION(action) {
         var callback = {
