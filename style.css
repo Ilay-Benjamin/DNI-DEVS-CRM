@@ -39,7 +39,6 @@ body {
     border-radius: 5px; /* Rounded corners */
     padding: 10px; /* Some padding */
     margin-top: 10px; /* Space above the div */
-    display: none; /* Hide by default */
 }
 
 #error_display_p {

@@ -30,6 +30,8 @@ class Action {
             inputs.callback = callback;
             inputs.output = response;
             this.method({ ...inputs});
+        } else {
+            callback.error(response);
         }
     }
 
@@ -59,6 +61,7 @@ class Action {
 
 class Actions {
     static USERS_LIST_ACTION = 'usersList';
+    static ALL_USERS_ACTION = 'allUsers';
     static FIND_USER_ACTION = 'findUser';
     static ADD_USER_ACTION = 'addUser';
     static DELETE_USER_ACTION = "deleteUser";
@@ -72,6 +75,8 @@ class ActionFactory {
         switch (action) {
             case Actions.USERS_LIST_ACTION:
                 return new UsersListAction();
+            case Actions.ALL_USERS_ACTION:
+                return new AllUsersAction();
             case Actions.FIND_USER_ACTION:
                 return new FindUserAction();
             case Actions.ADD_USER_ACTION:
@@ -92,19 +97,30 @@ class UsersListAction extends Action {
     static name() { return "usersList"; }
 
     static test({limit}) {
+        var output = new Output();
         if (limit == null || limit.toString().length == 0) {
-            return OutputFactory.GET_INVALID_INPUT_OUTPUT('limit', ErrorTypes.EMPTY_INPUT);
+            var newOutput = OutputFactory.GET_INVALID_INPUT_OUTPUT("מספר מקסימלי של משתמשים", ErrorTypes.EMPTY_INPUT);
+            output.mergeStatus(newOutput);
+            output.mergeMessages(newOutput);
+        } else if (isNaN(limit)) {
+            var newOutput =  OutputFactory.GET_INVALID_INPUT_OUTPUT("מספר מקסימלי של משתמשים", ErrorTypes.INVALID_INPUT);
+            output.mergeStatus(newOutput);
+            output.mergeMessages(newOutput);
+        } else if (limit < 0) {
+            var newOutput =  OutputFactory.GET_INVALID_INPUT_OUTPUT("מספר מקסימלי של משתמשים", ErrorTypes.INVALID_INPUT);
+            output.mergeStatus(newOutput);
+            output.mergeMessages(newOutput);
+        } else if (limit > 9999) {
+            var newOutput =  OutputFactory.GET_INVALID_INPUT_OUTPUT("מספר מקסימלי של משתמשים", ErrorTypes.LONG_INPUT_LENGTH);
+            output.mergeStatus(newOutput);
+            output.mergeMessages(newOutput);
         }
-        if (isNaN(limit)) {
-            return OutputFactory.GET_INVALID_INPUT_OUTPUT('limit', ErrorTypes.INVALID_INPUT);
+        if (!output.isError()) {
+            var newOutput = OutputFactory.GET_SUCCESS_OUTPUT([]);
+            output.mergeStatus(newOutput);
+            output.mergeMessages(newOutput);
         }
-        if (limit < 0) {
-            return OutputFactory.GET_INVALID_INPUT_OUTPUT('limit', ErrorTypes.INVALID_INPUT);
-        }
-        if (limit.toString().length > 9999) {
-            return OutputFactory.GET_INVALID_INPUT_OUTPUT('limit', ErrorTypes.LONG_INPUT_LENGTH);
-        }
-        return OutputFactory.GET_SUCCESS_OUTPUT();
+        return output;
     }
 
     static method({limit, callback, output}) {
@@ -113,13 +129,52 @@ class UsersListAction extends Action {
             type: 'GET',
             success: function (data) {
                 if (data.length == 0) {
-                    callback(OutputFactory.GET_SYSTEM_ERROR_OUTPUT(ErrorTypes.USER_NOT_FOUND));
+                    callback.error(OutputFactory.GET_SYSTEM_ERROR_OUTPUT(ErrorTypes.USER_NOT_FOUND));
                 } else {
                     console.log('data: ' + JSON.stringify(data));
                     console.log('output before addData(): ' + JSON.stringify(output));
                     output.addData(data);
-                    callback(output);
+                    callback.success(output);
                 }
+            }
+        });
+    }
+
+    constructor() {
+        super('', () => {});
+        this.name = this.constructor.name;
+        this.method = this.constructor.method;
+        this.test = this.constructor.test;
+    }
+
+}
+
+
+class AllUsersAction extends Action {
+
+    static name() { return "usersList"; }
+
+    static test({}) {
+        return OutputFactory.GET_SUCCESS_OUTPUT([]);
+    }
+
+    static method({callback, output}) {
+        var limit = 9999;
+        $.ajax({
+            url: 'https://ilay-apis.online/APIs/API-7/index.php/user/list?limit=' + limit,
+            type: 'GET',
+            success: function (data) {
+                if (data.length == 0) {
+                    callback.error(OutputFactory.GET_SYSTEM_ERROR_OUTPUT(ErrorTypes.USER_NOT_FOUND));
+                } else {
+                    console.log('data: ' + JSON.stringify(data));
+                    console.log('output before addData(): ' + JSON.stringify(output));
+                    output.addData(data);
+                    callback.success(output);
+                }
+            },
+            error: function (data) {
+                callback.error(OutputFactory.GET_INTERNAL_SERVER_ERROR_OUTPUT(ErrorTypes.USER_NOT_FOUND));
             }
         });
     }
@@ -152,14 +207,16 @@ class FindUserAction extends Action {
             var newOutput = OutputFactory.GET_INVALID_INPUT_OUTPUT("מס' מזהה", ErrorTypes.INVALID_INPUT);
             output.mergeStatus(newOutput);
             output.mergeMessages(newOutput);
-        } else if (id.toString().length > 9999) {
+        } else if (id > 9999) {
             var newOutput = OutputFactory.GET_INVALID_INPUT_OUTPUT("מס' מזהה", ErrorTypes.LONG_INPUT_LENGTH);
             output.mergeStatus(newOutput);
             output.mergeMessages(newOutput);
         }
-        var newOutput = OutputFactory.GET_SUCCESS_OUTPUT([]);
-        output.mergeStatus(newOutput);
-        output.mergeMessages(newOutput);
+        if (!output.isError()) {
+            var newOutput = OutputFactory.GET_SUCCESS_OUTPUT([]);
+            output.mergeStatus(newOutput);
+            output.mergeMessages(newOutput);
+        }
         return output;
     }
 
@@ -169,7 +226,10 @@ class FindUserAction extends Action {
             success: function (data) {
                 console.log('data: ' + JSON.stringify(data));
                 output.addData([data]);
-                callback(output);
+                callback.success(output);
+            },
+            error: function (data) {
+                callback.error(OutputFactory.GET_INTERNAL_SERVER_ERROR_OUTPUT(ErrorTypes.USER_NOT_FOUND));
             }
         });
     }
@@ -243,9 +303,11 @@ class AddUserAction extends Action {
             output.mergeStatus(newOutput);
             output.mergeMessages(newOutput);
         }
-        var newOutput = OutputFactory.GET_SUCCESS_OUTPUT([]);
-        output.mergeStatus(newOutput);
-        output.mergeMessages(newOutput);
+        if (!output.isError()) {
+            var newOutput = OutputFactory.GET_SUCCESS_OUTPUT([]);
+            output.mergeStatus(newOutput);
+            output.mergeMessages(newOutput);
+        }
         return output;
     }
 
@@ -256,7 +318,10 @@ class AddUserAction extends Action {
             type: 'GET',
             success: function (data) {
                 output.addData(data);
-                callback(output);
+                callback.success(output);
+            },
+            error: function (data) {
+                callback.error(OutputFactory.GET_INTERNAL_SERVER_ERROR_OUTPUT(ErrorTypes.USER_NOT_FOUND));
             }
         });
     }
@@ -290,14 +355,16 @@ class DeleteUserAction extends Action {
             var newOutput = OutputFactory.GET_INVALID_INPUT_OUTPUT("מס' מזהה", ErrorTypes.INVALID_INPUT);
             output.mergeStatus(newOutput);
             output.mergeMessages(newOutput);
-        } else if (id.toString().length > 9999) {
+        } else if (id > 9999) {
             var newOutput = OutputFactory.GET_INVALID_INPUT_OUTPUT("מס' מזהה", ErrorTypes.LONG_INPUT_LENGTH);
             output.mergeStatus(newOutput);
             output.mergeMessages(newOutput);
         }
-        var newOutput = OutputFactory.GET_SUCCESS_OUTPUT([]);
-        output.mergeStatus(newOutput);
-        output.mergeMessages(newOutput);
+        if (!output.isError()) {
+            var newOutput = OutputFactory.GET_SUCCESS_OUTPUT([]);
+            output.mergeStatus(newOutput);
+            output.mergeMessages(newOutput);
+        }
         return output;
     }
 
@@ -310,11 +377,11 @@ class DeleteUserAction extends Action {
                     type: 'GET',
                     success: function (data) {
                         output.addData(data);
-                        callback(output);
+                        callback.success(output);
                     }
                 });
             }, error: function (data) {
-                callback(OutputFactory.GET_SYSTEM_ERROR_OUTPUT(ErrorTypes.USER_NOT_FOUND))
+                callback.error(OutputFactory.GET_INTERNAL_SERVER_ERROR_OUTPUT(ErrorTypes.USER_NOT_FOUND));
         }});
     }
 
@@ -347,7 +414,7 @@ class UpdateUserAction extends Action {
             var newOutput = OutputFactory.GET_INVALID_INPUT_OUTPUT("מס' מזהה", ErrorTypes.INVALID_INPUT);
             output.mergeStatus(newOutput);
             output.mergeMessages(newOutput);
-        } else if (id.toString().length > 9999) {
+        } else if (id > 9999) {
             var newOutput = OutputFactory.GET_INVALID_INPUT_OUTPUT("מס' מזהה", ErrorTypes.LONG_INPUT_LENGTH);
             output.mergeStatus(newOutput);
             output.mergeMessages(newOutput);
@@ -398,10 +465,12 @@ class UpdateUserAction extends Action {
             output.mergeStatus(newOutput);
             output.mergeMessages(newOutput);
         }
-        var newOutput = OutputFactory.GET_SUCCESS_OUTPUT([]);
-        console.log('newOutput: ' + JSON.stringify(newOutput));
-        output.mergeStatus(newOutput);
-        output.mergeMessages(newOutput);
+        if (!output.isError()) {
+            var newOutput = OutputFactory.GET_SUCCESS_OUTPUT([]);
+            console.log('newOutput: ' + JSON.stringify(newOutput)); 
+            output.mergeStatus(newOutput);
+            output.mergeMessages(newOutput);
+        }
         return output;
     }
 
@@ -437,11 +506,11 @@ class UpdateUserAction extends Action {
                     type: 'GET',
                     success: function (data) {
                         output.addData(data);
-                        callback(output);
+                        callback.success(output);
                     }
                 });
             }, error: function (data) {
-                callback(OutputFactory.GET_INTERNAL_SERVER_ERROR_OUTPUT(ErrorTypes.USER_NOT_FOUND))
+                callback.error(OutputFactory.GET_INTERNAL_SERVER_ERROR_OUTPUT(ErrorTypes.USER_NOT_FOUND));
             }});
     }
 

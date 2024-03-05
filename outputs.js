@@ -85,7 +85,7 @@ class Messages {
     static GET_SUCCESS_MESSAGE = () => {
         return Messages.#SUCCESS_MESSAGE;
     }
-    static GET_INVALID_INPUT_ERROR_MESSAGE = ({input, errorType}) => {
+    static GET_INVALID_INPUT_ERROR_MESSAGE = (input, errorType) => {
         switch (errorType) {
             case ErrorTypes.EMPTY_INPUT:
                 return `שגיאה. הזנת ערך ריק לשדה ${input}.`;
@@ -93,11 +93,13 @@ class Messages {
                 return `שגיאה. הזנת ערך קצר מדי לשדה ${input}.`;
             case ErrorTypes.LONG_INPUT_LENGTH:
                 return `שגיאה. הזנת ערך ארוך מדי לשדה ${input}.`;
+            case ErrorTypes.INVALID_INPUT:
+                return `שגיאה. הזנת ערך לא חוקי לשדה ${input}.`;
             default:
                 return Messages.#UNKNOWN_ERROR_MESSAGE;
         }
     }
-    static GET_ACCESS_ERROR_MESSAGE = ({errorType}) => {
+    static GET_ACCESS_ERROR_MESSAGE = (errorType) => {
         switch (errorType) {
             case ErrorTypes.UNAUTHORIZED:
                 return Messages.#UNAUTHORIZED_MESSAGE;
@@ -107,7 +109,7 @@ class Messages {
                 return Messages.#UNKNOWN_ERROR_MESSAGE;
         }
     }
-    static GET_UNKNOWN_ERROR_MESSAGE = ({errorType}) => {
+    static GET_UNKNOWN_ERROR_MESSAGE = (errorType) => {
         switch (errorType) {
                 case ErrorTypes.UNKNOWN_ERROR: 
                     return Messages.#UNKNOWN_ERROR_MESSAGE;
@@ -115,7 +117,7 @@ class Messages {
                     return Messages.#UNKNOWN_ERROR_MESSAGE;
         }
     }
-    static GET_SYSTEM_ERROR_MESSAGE = ({errorType}) => {
+    static GET_SYSTEM_ERROR_MESSAGE = (errorType) => {
         switch (errorType) {
             case ErrorTypes.INVALID_ACTION:
                 Messages.#INVALID_ACTION_MESSAGE;
@@ -123,7 +125,7 @@ class Messages {
                 return Messages.#UNKNOWN_ERROR_MESSAGE;
         }
     }
-    static GET_INTERNAL_SERVER_ERROR_MESSAGE = ({errorType}) => {
+    static GET_INTERNAL_SERVER_ERROR_MESSAGE = (errorType) => {
         switch (errorType) {
             case ErrorTypes.USER_NOT_FOUND_MESSAGE:
                 return Messages.#USER_NOT_FOUND_MESSAGE;
@@ -131,19 +133,19 @@ class Messages {
                 return Messages.#UNKNOWN_ERROR_MESSAGE;
         }
     }
-    static GET_MESSAGE = ({outputType, errorType, input = ''}) => {
+    static GET_MESSAGE = (outputType, errorType, input = '') => {
         if (input == '') {
             switch (outputType) {
                 case OutputTypes.SUCCESS:
                     return Messages.GET_SUCCESS_MESSAGE();
                 case OutputTypes.ACCESS_ERROR:
-                    return Messages.GET_ACCESS_ERROR_MESSAGE({errorType});
+                    return Messages.GET_ACCESS_ERROR_MESSAGE(errorType);
                 case OutputTypes.UNKNOWN_ERROR:
-                    return Messages.GET_UNKNOWN_ERROR_MESSAGE({errorType});
+                    return Messages.GET_UNKNOWN_ERROR_MESSAGE(errorType);
                 case OutputTypes.SYSTEM_ERROR:
-                    return Messages.GET_SYSTEM_ERROR_MESSAGE({errorType});
+                    return Messages.GET_SYSTEM_ERROR_MESSAGE(errorType);
                 case OutputTypes.INTERNAL_SERVER_ERROR:
-                    return Messages.GET_INTERNAL_SERVER_ERROR_MESSAGE({errorType});
+                    return Messages.GET_INTERNAL_SERVER_ERROR_MESSAGE(errorType);
                 default:
                     return Messages.#UNKNOWN_ERROR_MESSAGE;
             }
@@ -154,8 +156,8 @@ class Messages {
 
 
 class OutputFactory {
-    static GET_OUTPUT({status, data = [], outputType, errorType, input = ''}) {
-        var message = Messages.GET_MESSAGE({outputType, errorType, input});
+    static GET_OUTPUT(status, data = [], outputType, errorType, input = '') {
+        var message = Messages.GET_MESSAGE(outputType, errorType, input);
         return new Output(status, data, message);
     }
     static GET_SUCCESS_OUTPUT(data = []) {
@@ -165,19 +167,19 @@ class OutputFactory {
         return new Output(true, data, Messages.GET_SUCCESS_MESSAGE());
     }
     static GET_INVALID_INPUT_OUTPUT(input, errorType) {
-        return new Output(false, [], Messages.GET_INVALID_INPUT_ERROR_MESSAGE({input, errorType}));
+        return new Output(false, [], Messages.GET_INVALID_INPUT_ERROR_MESSAGE(input, errorType));
     }
     static GET_ACCESS_ERROR_OUTPUT(errorType) {
-        return new Output(false, [], Messages.GET_ACCESS_ERROR_MESSAGE({errorType}));
+        return new Output(false, [], Messages.GET_ACCESS_ERROR_MESSAGE(errorType));
     }
     static GET_UNKNOWN_ERROR_OUTPUT(errorType) {
-        return new Output(false, [], Messages.GET_UNKNOWN_ERROR_MESSAGE({errorType}));
+        return new Output(false, [], Messages.GET_UNKNOWN_ERROR_MESSAGE(errorType));
     }
     static GET_SYSTEM_ERROR_OUTPUT(errorType) {
-        return new Output(false, [], Messages.GET_SYSTEM_ERROR_MESSAGE({errorType}));
+        return new Output(false, [], Messages.GET_SYSTEM_ERROR_MESSAGE(errorType));
     }
     static GET_INTERNAL_SERVER_ERROR_OUTPUT(errorType) {
-        return new Output(false, [], Messages.GET_INTERNAL_SERVER_ERROR_MESSAGE({errorType}));
+        return new Output(false, [], Messages.GET_INTERNAL_SERVER_ERROR_MESSAGE(errorType));
     }
 }
 

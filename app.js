@@ -35,13 +35,13 @@ export function initPage() {
 
 export function onActionButtonClick(action) {
     console.log(action);
-    alert("Button clicked");
+    //alert("Button clicked");
     var action = ActionFactory.GET(action);
     TableController.EXECUTE_ACTION(action);
 }
 
 
 export function a() {
-    alert("Page loadsfdged");
+   // alert("Page loadsfdged");
    // alert("Page loaded");
 }
