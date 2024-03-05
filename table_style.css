@@ -66,19 +66,15 @@ tr:nth-child(even):hover {
 }
 
 .fullname-cell, #fullname-header {
-    width: 120px;
-}
-
-.fullname-cell {
-    font-weight: 600;
+    width: 130px;
 }
 
 .phoneNumber-cell, #phoneNumber-header {
-    width: 85px;
+    width: 120px;
 }
 
 .email-cell, #email-header{
-    width: 150px;
+    width: 215px;
 }
 
 
