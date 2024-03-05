@@ -17,6 +17,7 @@ export class TableController {
 
     static INIT_TABLE() {
         var action = ActionFactory.GET(Actions.ALL_USERS_ACTION);
+        console.log(JSON.stringify(action));
         var callback = {
             success: function (output) {
                 TableController.LOAD_TABLE(output);

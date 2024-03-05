@@ -255,7 +255,7 @@ class AddUserAction extends Action {
             var newOutput = OutputFactory.GET_INVALID_INPUT_OUTPUT('שם מלא', ErrorTypes.EMPTY_INPUT);
             output.mergeStatus(newOutput);
             output.mergeMessages(newOutput);
-        } else if (!/[^\s]/.test(fullname)) {
+        } else if (!/^[a-zA-Z\s]*$/.test(fullname)) {
             var newOutput = OutputFactory.GET_INVALID_INPUT_OUTPUT('שם מלא', ErrorTypes.INVALID_INPUT);
             output.mergeStatus(newOutput);
             output.mergeMessages(newOutput);
@@ -421,7 +421,7 @@ class UpdateUserAction extends Action {
         }
         if (fullname == null || fullname.toString().length == 0) {
             //Pass
-        } else if (!/[^\s]/.test(fullname)) {
+        } else if (!/^[a-zA-Z\s]*$/.test(fullname)) {
             var newOutput = OutputFactory.GET_INVALID_INPUT_OUTPUT('שם מלא', ErrorTypes.INVALID_INPUT);
             output.mergeStatus(newOutput);
             output.mergeMessages(newOutput);
