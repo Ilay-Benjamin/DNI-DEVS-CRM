@@ -25,8 +25,11 @@ export function initPage() {
         document.getElementById('getListBtn').addEventListener('click', function(event) {
             onActionButtonClick('getUsersList');
         });
-        document.getElementById('findUserBtn').addEventListener('click', function(event) {
+        document.getElementById('findUserByIdBtn').addEventListener('click', function(event) {
             onActionButtonClick('findUserById');
+        });
+        document.getElementById('findUserByEmailBtn').addEventListener('click', function(event) {
+            onActionButtonClick('findUserByEmail');
         });
       //  a();
         TableController.INIT_TABLE();

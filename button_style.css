@@ -44,12 +44,12 @@ button#deleteUserBtn:hover {
 
 
 button#getListBtn {
-    background-color: #ffd000;
+    background-color: #eac004;
     color: #fff;
 }
 
 button#getListBtn:hover {
-    background-color: #b3a400;
+    background-color: #918503;
 }
 
 button#addUserBtn {
@@ -61,12 +61,25 @@ button#addUserBtn:hover {
     background-color: #28a752;
 }
 
-button#findUserBtn {
+button#findUserByIdBtn {
     background-color: rgb(97, 137, 202);
     color: #fff;
 }
 
-button#findUserBtn:hover {
+button#findUserByIdBtn:hover {
     background-color: #2855a7;
 }
+
+
+button#findUserByEmailBtn {
+    background-color: hsl(340, 98%, 51%);
+    color: #fff;
+}
+
+button#findUserByEmailBtn:hover {
+    background-color: hsl(340, 98%, 37%);
+    color: #fff;
+}
+
+
 

@@ -114,6 +114,7 @@ export class TableController {
     }
 
     static SHOW_ERROR_MESSAGE(output) {
+        console.log('output: ' + JSON.stringify(output));
         const messages = output.messages;
         $("#error_display_div").show();
         var text = "";
@@ -145,29 +146,29 @@ export class TableController {
        var success = function (output) {
         TableController.RELOAD_TABLE(output);
        }
-        var error = function (output) {
-            TableController.SHOW_ERROR_MESSAGE(output);
-        }
+    var error = function (output) {
+        TableController.SHOW_ERROR_MESSAGE(output);
+    }
         switch (action) {
             case 'addUser':
                 var inputs = TableController.#REQUIRE_INPUTS(['fullname', 'email', 'phoneNumber']);
-                dni.addUser(inputs);
+                dni.addUser(inputs.fullname, inputs.email, inputs.phoneNumber);
                 break;
             case 'updateUserById':
                 var inputs = TableController.#REQUIRE_INPUTS(['id', 'fullname', 'email', 'phoneNumber']);
-                dni.updateUserById(inputs)
+                dni.updateUserById(parseInt(inputs.id), inputs.fullname, inputs.email, inputs.phoneNumber)
                     .then((output) => { success(output); })
                     .catch((output) => { error(output); });
                 break;
             case 'deleteUserById':
                 var inputs = TableController.#REQUIRE_INPUTS(['id']);
-                dni.deleteUserById(inputs)
+                dni.deleteUserById(parseInt(inputs.id))
                     .then((output) => { success(output); })
                     .catch((output) => { error(output); });
                 break;
             case 'getUsersList':
                 var inputs = TableController.#REQUIRE_INPUTS(['limit']);
-                dni.getUsersList(inputs)
+                dni.getUsersList(parseInt(inputs.limit))
                     .then((output) => { success(output); })
                     .catch((output) => { error(output); });
                 break;
@@ -179,13 +180,13 @@ export class TableController {
                 break;
             case 'findUserById':
                 var inputs = TableController.#REQUIRE_INPUTS(['id']);
-                dni.findUserById(inputs)
+                dni.findUserById(parseInt(inputs.id))
                     .then((output) => { success(output); })
                     .catch((output) => { error(output); });
                 break;
             case 'findUserByEmail':
                 var inputs = TableController.#REQUIRE_INPUTS(['email'])
-                dni.findUserByEmail(inputs)
+                dni.findUserByEmail(inputs.email)
                     .then((output) => { success(output); })
                     .catch((output) => { error(output); });
                 break;
@@ -194,6 +195,26 @@ export class TableController {
     }
 
     static #REQUIRE_INPUTS(fields) {
+        var translatedInputsNames = {
+            id: "מס' מזהה",
+            fullname: "שם מלא",
+            phoneNumber: "מספר טלפון",
+            email: "כתובת אימייל",
+            limit: "מספר מקסימלי של משתמשים",
+        };
+        console.log('fields: ' + fields);
+        console.log('translatedInputsNames: ' + JSON.stringify(translatedInputsNames));
+        var inputs = {};
+        fields.forEach(name => inputs[name] = prompt("אנא הכנס " + translatedInputsNames[name] + ": "));
+        console.log('inputs: ' + JSON.stringify(inputs));
+        return inputs;
+    }
+    
+} 
+
+
+
+/*
         var inputs = [];
         fields.forEach((field) => {
             switch(field) {
@@ -202,7 +223,7 @@ export class TableController {
                     inputs.push(parseInt(id));
                     break;
                 case 'fullname':
-                    var fullname = prompt ("אנא הכנס מס' מזהה: ").toString();
+                    var fullname = prompt ("אנא הכנס שם מלא: ").toString();
                     inputs.push(fullname);
                     break;
                 case 'email':
@@ -220,10 +241,6 @@ export class TableController {
             }
         });
         return inputs;
-    }
-    
-} 
-
-
+*/
 
 
