@@ -26,9 +26,9 @@
 
         <script type="module">
             import 'https://code.jquery.com/jquery-3.6.0.min.js';
+
             export default window.jQuery.noConflict(true)
             import {a, initPage, onActionButtonClick} from './app.js';
-
             initPage();
         </script>
        
@@ -71,29 +71,29 @@
             <div id="div_buttons">
 
                 <div class="buttons_row_div">
-                    <button id="updateUserBtn" type="button">
+                    <button id="updateUserBtn" type="button" value="updateUserById">
                         <i class="fas fa-pencil-alt"></i> <!-- Font Awesome icon for "pencil" -->
                         Update User
                     </button>
                     
-                    <button id="deleteUserBtn" type="button">
+                    <button id="deleteUserBtn" type="button" value="deleteUserById">
                         <i class="fas fa-trash-alt"></i> <!-- Font Awesome icon for "trash" -->
                         Delete User
                     </button>
                 </div>
 
                 <div class="buttons_row_div">
-                    <button id="addUserBtn" type="button">
+                    <button id="addUserBtn" type="button" value="addUser">
                         <i class="fas fa-user-plus"></i> <!-- Font Awesome icon for "user plus" -->
                         Add User
                     </button>
                     
-                    <button id="getListBtn" type="button">
+                    <button id="getListBtn" type="button" value="getUsersList">
                         <i class="fas fa-list"></i> <!-- Font Awesome icon for "list" -->
                         Get List
                     </button>
                     
-                    <button id="findUserBtn" type="button">
+                    <button id="findUserBtn" type="button" value="findUserById">
                         <i class="fas fa-search"></i> <!-- Font Awesome icon for "search" -->
                         Find User
                     </button>

@@ -2,8 +2,9 @@
 import $ from "./jquery.js";
 window.jQuery = jQuery
 window.$ = jQuery
+import { Dni, dni } from './dni.js';
 import { TableController } from './TableController.js';
-import { Action, Actions, ActionFactory } from './actions.js';
+
 
 
 
@@ -16,16 +17,16 @@ export function initPage() {
             onActionButtonClick('addUser');
         });
         document.getElementById('updateUserBtn').addEventListener('click', function(event) {
-            onActionButtonClick('updateUser');
+            onActionButtonClick('updateUserById');
         });
         document.getElementById('deleteUserBtn').addEventListener('click', function(event) {
-            onActionButtonClick('deleteUser');
+            onActionButtonClick('deleteUserById');
         });
         document.getElementById('getListBtn').addEventListener('click', function(event) {
-            onActionButtonClick('usersList');
+            onActionButtonClick('getUsersList');
         });
         document.getElementById('findUserBtn').addEventListener('click', function(event) {
-            onActionButtonClick('findUser');
+            onActionButtonClick('findUserById');
         });
       //  a();
         TableController.INIT_TABLE();
@@ -37,8 +38,6 @@ export function initPage() {
 
 export function onActionButtonClick(action) {
     console.log(action);
-    //alert("Button clicked");
-    var action = ActionFactory.GET(action);
     TableController.EXECUTE_ACTION(action);
 }
 

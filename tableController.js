@@ -1,8 +1,8 @@
+
 import $ from "./jquery.js";
 window.jQuery = jQuery
 window.$ = jQuery
-import { Action, Actions, ActionFactory } from './actions.js';
-
+import { Dni, dni } from './dni.js';
 
 
 
@@ -16,17 +16,13 @@ export class TableController {
     }
 
     static INIT_TABLE() {
-        var action = ActionFactory.GET(Actions.ALL_USERS_ACTION);
-        console.log(JSON.stringify(action));
-        var callback = {
-            success: function (output) {
+        dni.getAllUsersList().then((output) => {
+            if (output.status) {
                 TableController.LOAD_TABLE(output);
-            },
-            error: function (output) {
+            } else {
                 TableController.SHOW_ERROR_MESSAGE(output);
             }
-        }
-        action.call(callback);
+        })
       //  $("#error_display_div").hide();
       //  $("#success_display_div").hide();
     }
@@ -146,16 +142,84 @@ export class TableController {
     }
 
     static EXECUTE_ACTION(action) {
-        var callback = {
-            success: function (output) {
-                TableController.RELOAD_TABLE(output);
-            },
-            error: function (output) {
-                TableController.SHOW_ERROR_MESSAGE(output);
-            }
+       var success = function (output) {
+        TableController.RELOAD_TABLE(output);
+       }
+        var error = function (output) {
+            TableController.SHOW_ERROR_MESSAGE(output);
         }
-        
-        action.call(callback);
+        switch (action) {
+            case 'addUser':
+                var inputs = TableController.#REQUIRE_INPUTS(['fullname', 'email', 'phoneNumber']);
+                dni.addUser(inputs);
+                break;
+            case 'updateUserById':
+                var inputs = TableController.#REQUIRE_INPUTS(['id', 'fullname', 'email', 'phoneNumber']);
+                dni.updateUserById(inputs)
+                    .then((output) => { success(output); })
+                    .catch((output) => { error(output); });
+                break;
+            case 'deleteUserById':
+                var inputs = TableController.#REQUIRE_INPUTS(['id']);
+                dni.deleteUserById(inputs)
+                    .then((output) => { success(output); })
+                    .catch((output) => { error(output); });
+                break;
+            case 'getUsersList':
+                var inputs = TableController.#REQUIRE_INPUTS(['limit']);
+                dni.getUsersList(inputs)
+                    .then((output) => { success(output); })
+                    .catch((output) => { error(output); });
+                break;
+            case 'getAllUsersList': 
+            var inputs = [];
+            dni.getAllUsersList()
+                .then((output) => { success(output); })
+                .catch((output) => { error(output); });
+                break;
+            case 'findUserById':
+                var inputs = TableController.#REQUIRE_INPUTS(['id']);
+                dni.findUserById(inputs)
+                    .then((output) => { success(output); })
+                    .catch((output) => { error(output); });
+                break;
+            case 'findUserByEmail':
+                var inputs = TableController.#REQUIRE_INPUTS(['email'])
+                dni.findUserByEmail(inputs)
+                    .then((output) => { success(output); })
+                    .catch((output) => { error(output); });
+                break;
+                
+        }
+    }
+
+    static #REQUIRE_INPUTS(fields) {
+        var inputs = [];
+        fields.forEach((field) => {
+            switch(field) {
+                case 'id':
+                    var id = prompt ("אנא הכנס מס' מזהה: ").toString();
+                    inputs.push(parseInt(id));
+                    break;
+                case 'fullname':
+                    var fullname = prompt ("אנא הכנס מס' מזהה: ").toString();
+                    inputs.push(fullname);
+                    break;
+                case 'email':
+                    var email = prompt ('אנא הכנס כתובת אימייל: ').toString();
+                    inputs.push(email);
+                    break;
+                case 'phoneNumber':
+                    var phoneNumber = prompt ('אנא הכנס מספר טלפון: ').toString();
+                    inputs.push(phoneNumber);
+                    break;
+                case 'limit': 
+                    var limit = prompt ('אנא הכנס מספר מקסימלי של משתמשים: ').toString();
+                    inputs.push(parseInt(limit));
+                    break;
+            }
+        });
+        return inputs;
     }
     
 } 
