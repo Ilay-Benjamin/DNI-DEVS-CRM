@@ -3,6 +3,7 @@ import $ from "./jquery.js";
 window.jQuery = jQuery
 window.$ = jQuery
 import { Dni, dni } from './dni.js';
+import { Actions } from "../crm_library/dni-crm/lib/action.js";
 
 
 
@@ -49,7 +50,6 @@ export class TableController {
             const dataRow = document.createElement("tr");
     
             dataRow.addEventListener("click", () => {
-                alert("Row clicked - " + user.id + " : " + JSON.stringify(TableController.USER_INFO_STATE));
                 if (!TableController.USER_INFO_STATE.isLoaded) {
                     TableController.SHOW_USER_INFO(user);
                     TableController.USER_INFO_STATE.id = user.id;
@@ -150,41 +150,43 @@ export class TableController {
         TableController.SHOW_ERROR_MESSAGE(output);
     }
         switch (action) {
-            case 'addUser':
+            case Actions.ADD_USER_ACTION:
                 var inputs = TableController.#REQUIRE_INPUTS(['fullname', 'email', 'phoneNumber']);
-                dni.addUser(inputs.fullname, inputs.email, inputs.phoneNumber);
+                dni.addUser(inputs.fullname, inputs.email, inputs.phoneNumber)
+                    .then((output) => { success(output); })
+                    .catch((output) => { error(output); });
                 break;
-            case 'updateUserById':
+            case Actions.UPDATE_USER_ACTION:
                 var inputs = TableController.#REQUIRE_INPUTS(['id', 'fullname', 'email', 'phoneNumber']);
                 dni.updateUserById(parseInt(inputs.id), inputs.fullname, inputs.email, inputs.phoneNumber)
                     .then((output) => { success(output); })
                     .catch((output) => { error(output); });
                 break;
-            case 'deleteUserById':
+            case Actions.DELETE_USER_ACTION:
                 var inputs = TableController.#REQUIRE_INPUTS(['id']);
                 dni.deleteUserById(parseInt(inputs.id))
                     .then((output) => { success(output); })
                     .catch((output) => { error(output); });
                 break;
-            case 'getUsersList':
+            case Actions.USERS_LIST_ACTION:
                 var inputs = TableController.#REQUIRE_INPUTS(['limit']);
                 dni.getUsersList(parseInt(inputs.limit))
                     .then((output) => { success(output); })
                     .catch((output) => { error(output); });
                 break;
-            case 'getAllUsersList': 
+            case Actions.ALL_USERS_ACTION:
             var inputs = [];
             dni.getAllUsersList()
                 .then((output) => { success(output); })
                 .catch((output) => { error(output); });
                 break;
-            case 'findUserById':
+            case Actions.FIND_USER_BY_ID_ACTION:
                 var inputs = TableController.#REQUIRE_INPUTS(['id']);
                 dni.findUserById(parseInt(inputs.id))
                     .then((output) => { success(output); })
                     .catch((output) => { error(output); });
                 break;
-            case 'findUserByEmail':
+            case Actions.FIND_USER_BY_EMAIL_ACTION:
                 var inputs = TableController.#REQUIRE_INPUTS(['email'])
                 dni.findUserByEmail(inputs.email)
                     .then((output) => { success(output); })
